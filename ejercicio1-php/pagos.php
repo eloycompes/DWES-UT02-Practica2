@@ -7,6 +7,40 @@
         
 <?php
 
+/*
+DOCUMENTACIÓN DE ARRAYS EN PHP
+
+1. Arrays indexados:
+   - Son arrays donde cada elemento se identifica por un índice numérico automático o manual.
+   - Ejemplo:
+     $numeros = [10, 20, 30];
+     echo $numeros[1]; // Muestra 20
+
+2. Arrays asociativos:
+   - Cada elemento se identifica por una clave personalizada (string o número) en lugar de un índice automático.
+   - Ejemplo:
+     $persona = [
+         'nombre' => 'Pedro',
+         'edad' => 30
+     ];
+     echo $persona['nombre']; // Muestra "Pedro"
+
+3. Arrays multidimensionales:
+   - Son arrays que contienen otros arrays dentro de ellos.
+   - Se usan para estructuras complejas, como tablas de datos o registros de socios con pagos mensuales.
+   - Ejemplo:
+     $socios = [
+         '01' => [
+             'nombre' => 'Pedro',
+             'pagos' => [
+                 '2025-01' => ['importe' => 50, 'estado' => 'Pagado'],
+                 '2025-02' => ['importe' => 50, 'estado' => 'Pendiente']
+             ]
+         ]
+     ];
+     echo $socios['01']['pagos']['2025-01']['estado']; // Muestra "Pagado"
+*/
+
 // Array asociativo multidimensional de socios
 $socios = [
     '01' => [
