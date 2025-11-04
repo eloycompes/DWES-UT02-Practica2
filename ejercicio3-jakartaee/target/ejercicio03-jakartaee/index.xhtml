@@ -8,7 +8,7 @@
     <h:head>
         <title>Usuarios y pagos mensuales</title>
         <meta charset="UTF-8"/>
-            <style>
+        <style>
             .no-pagado {
                 color: red;
                 font-weight: bold;
@@ -25,6 +25,19 @@
                 background-color: #007bff;
                 color: white;
             }
+
+            .mensaje-rojo {
+                color: red;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            .mensaje-verde {
+                color: green;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
         </style>
     </h:head>
 
@@ -46,7 +59,21 @@
                     <th>Importe (&#8364;)</th>
                 </tr>
 
-                
+                <!-- Bucle listado mes e importe -->
+
+                <ui:repeat value="#{usuario.pagosMensuales}" var="pago">
+                    <tr>
+                        <td>#{pago.key}</td>
+                        <td>
+                            <h:outputText value="#{pago.value}">
+                                <f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2" />
+                            </h:outputText>
+
+                        </td>
+
+                    </tr>
+                </ui:repeat>
+
 
                 <!-- Total anual -->
 
@@ -59,6 +86,18 @@
                     </td>
                 </tr>
             </table>
+
+            <!-- Mensaje según total anual -->
+
+            <c:choose>
+                <c:when test="#{usuario.estaAlDia}">
+                    <p class="mensaje-verde">El usuario está al corriente de pagos</p>
+                </c:when>
+                <c:otherwise>
+                    <p class="mensaje-rojo">El usuario no está al día con la cuota</p>
+                </c:otherwise>
+            </c:choose>
+
         </ui:repeat>
     </h:body>
 </html>

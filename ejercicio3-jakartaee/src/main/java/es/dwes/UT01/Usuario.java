@@ -1,5 +1,7 @@
 package es.dwes.UT01;
 import java.util.Map;
+import java.util.Set;
+
 
 public class Usuario {
         
@@ -28,6 +30,14 @@ public class Usuario {
        
         public double getTotalDeuda(){
             return pagos.values().stream().mapToDouble(v -> v != null ? v : 0).sum();
+        }
+
+        public Set<Map.Entry<String, Double>> getPagosMensuales() {
+            return pagos.entrySet();
+        }
+
+        public boolean estaAlDia() {
+            return getTotalDeuda() >= 100.0;
         }
         
     }
