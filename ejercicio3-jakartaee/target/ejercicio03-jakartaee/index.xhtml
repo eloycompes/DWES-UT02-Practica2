@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:c="jakarta.tags.core">
+
+    <h:head>
+        <title>Usuarios y pagos mensuales</title>
+        <meta charset="UTF-8"/>
+            <style>
+            .no-pagado {
+                color: red;
+                font-weight: bold;
+            }
+            table {
+                border-collapse: collapse;
+                margin-bottom: 40px;
+            }
+            th, td {
+                border: 1px solid #333;
+                padding: 6px 12px;
+            }
+            th {
+                background-color: #007bff;
+                color: white;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <h1>Usuarios y Pagos mensuales</h1>
+
+        <!-- Recorremos la lista de usuarios -->
+        <ui:repeat value="#{helloBean.usuarios}" var="usuario">
+            <h2>Datos de #{usuario.nombre} #{usuario.apellidos}</h2>
+            <p><strong>DNI:</strong> #{usuario.dni}</p>
+            <p><strong>Email:</strong> #{usuario.email}</p>
+            <p><strong>Edad:</strong> #{usuario.edad}</p>
+
+            <h3>Pagos Mensuales</h3>
+
+            <table>
+                <tr>
+                    <th>Mes</th>
+                    <th>Importe (&#8364;)</th>
+                </tr>
+
+                
+
+                <!-- Total anual -->
+
+                <tr>
+                    <td><strong>Total anual</strong></td>
+                    <td>
+                        <h:outputText value="#{usuario.totalDeuda}">
+                            <f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2" />
+                        </h:outputText>
+                    </td>
+                </tr>
+            </table>
+        </ui:repeat>
+    </h:body>
+</html>
