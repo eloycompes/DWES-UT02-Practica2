@@ -36,8 +36,8 @@ public class Usuario {
             return pagos.entrySet();
         }
 
-        public boolean estaAlDia() {
-            return getTotalDeuda() >= 100.0;
+        public boolean isEstaAlDia() {
+            return getTotalDeuda() >= 100;
         }
         
     }

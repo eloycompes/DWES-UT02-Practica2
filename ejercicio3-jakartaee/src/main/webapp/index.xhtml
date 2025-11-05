@@ -9,10 +9,6 @@
         <title>Usuarios y pagos mensuales</title>
         <meta charset="UTF-8"/>
         <style>
-            .no-pagado {
-                color: red;
-                font-weight: bold;
-            }
             table {
                 border-collapse: collapse;
                 margin-bottom: 40px;
@@ -29,13 +25,11 @@
             .mensaje-rojo {
                 color: red;
                 font-weight: bold;
-                margin-top: 10px;
             }
 
             .mensaje-verde {
                 color: green;
                 font-weight: bold;
-                margin-top: 10px;
             }
 
         </style>
@@ -43,13 +37,16 @@
 
     <h:body>
         <h1>Usuarios y Pagos mensuales</h1>
+        <hr/>
 
         <!-- Recorremos la lista de usuarios -->
         <ui:repeat value="#{helloBean.usuarios}" var="usuario">
             <h2>Datos de #{usuario.nombre} #{usuario.apellidos}</h2>
-            <p><strong>DNI:</strong> #{usuario.dni}</p>
-            <p><strong>Email:</strong> #{usuario.email}</p>
-            <p><strong>Edad:</strong> #{usuario.edad}</p>
+            <ul>
+                <li><strong>DNI:</strong> #{usuario.dni}</li>
+                <li><strong>Email:</strong> #{usuario.email}</li>
+                <li><strong>Edad:</strong> #{usuario.edad}</li>
+            </ul>
 
             <h3>Pagos Mensuales</h3>
 
@@ -64,13 +61,18 @@
                 <ui:repeat value="#{usuario.pagosMensuales}" var="pago">
                     <tr>
                         <td>#{pago.key}</td>
-                        <td>
-                            <h:outputText value="#{pago.value}">
+                        <td>                        
+                            <!-- <h:outputText value="#{pago.value}">
+                                <f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2" />
+                            </h:outputText> -->
+
+                            <h:outputText
+                                value = "#{pago.value > 0 ? pago.value : 'NO PAGADO'}"
+                                styleClass="#{pago.value == 0 ? 'mensaje-rojo' : ''}">
                                 <f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2" />
                             </h:outputText>
 
                         </td>
-
                     </tr>
                 </ui:repeat>
 
@@ -89,15 +91,19 @@
 
             <!-- Mensaje según total anual -->
 
-            <c:choose>
-                <c:when test="#{usuario.estaAlDia}">
-                    <p class="mensaje-verde">El usuario está al corriente de pagos</p>
-                </c:when>
-                <c:otherwise>
-                    <p class="mensaje-rojo">El usuario no está al día con la cuota</p>
-                </c:otherwise>
-            </c:choose>
+            <!-- <h:panelGroup rendered="#{usuario.totalDeuda >= 100}">
+                <p>El usuario está al corriente de pagos</p>
+            </h:panelGroup>
 
+            <h:panelGroup rendered="#{not usuario.estaAlDia}">
+                <p>El usuario no está al día con la cuota</p>
+            </h:panelGroup> -->
+
+            <h:outputText
+                value = "#{usuario.estaAlDia ? 'El usuario está al corriente de pago' : 'El usuario no está al día con la cuota'}"
+                styleClass="#{usuario.estaAlDia ? 'mensaje-verde' : 'mensaje-rojo'}"/>
+
+            <hr/>
         </ui:repeat>
     </h:body>
 </html>
